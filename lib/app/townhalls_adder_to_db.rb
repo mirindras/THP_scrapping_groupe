@@ -14,4 +14,4 @@ class TwitterToJson
     def add_more(array)
         @a.write(array.to_json)
     end
-end`
+end
