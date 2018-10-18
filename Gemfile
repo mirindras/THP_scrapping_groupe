@@ -15,8 +15,6 @@ gem 'json'
 
 gem 'bundler'
 
-gem 'rubygems'
-
 gem 'csv'
 
 gem 'twitter'
