@@ -1,6 +1,7 @@
 require 'dotenv'
 require 'twitter'
 require 'json'
+require 'twitter'
 
 Dotenv.load
 
@@ -12,7 +13,6 @@ class TweeTown
   attr_accessor :data_bank, :client, :town_list
 
   def initialize
-
     data_bank = File.read "../../db/all_emails.JSON"
     @@town_list = JSON.parse(data_bank)
 
@@ -25,13 +25,22 @@ class TweeTown
   end
 
   def town_list
-    array_names = []
+    @@array_names = []
     @@town_list.each do |hashes|
-      array_names.push(hashes['ville'])
-  end
-  puts array_names
+      @@array_names.push(hashes['ville'])
+    end
+    return @@array_names
   end
 
+  def tweeter_account
+    @@array_account = []
+    town_list.map { |ville| 
+      client.user_search("mairie #{ville}").take(1).collect do |account_name|
+      @@array_account.push(account_name)
+    end
+    }
+    puts @@array_account
+  end
 
   def follow_my_town (array)
     array.each { | elem | client.follow(elem) }
@@ -40,4 +49,4 @@ class TweeTown
 end
 
 
-TweeTown.new.town_list
+TweeTown.new.tweeter_account
