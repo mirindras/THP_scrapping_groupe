@@ -20,5 +20,3 @@ gem 'csv'
 gem 'googleauth'
 
 gem 'fileutils'
-
-gem 'open-uri'
