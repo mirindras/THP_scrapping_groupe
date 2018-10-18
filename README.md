@@ -48,7 +48,7 @@ Pour faire tourner les programmes, lancer individuellement dans lib/app/ :
 ├── db <br>
 │  └── townhalls.csv <br>
 └── lib <br>
-..  ├── app <br>
+.  ├── app <br>
   │  ├── townhalls_scrapper.rb <br>
   │  ├── townhalls_mailer.rb <br>
   │  ├── townhalls_adder_to_db.rb <br>
