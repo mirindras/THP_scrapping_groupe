@@ -31,6 +31,12 @@ OS X & Linux:
 ```sh
 bundle install
 ```
+
+Pour faire tourner les programmes, lancer individuellement dans lib/app/ :
+- townhalls_follower.rb	: follow twitter
+- townhalls_mailer.rb : mass-mailing
+- townhalls_scrapper.rb : récupère les emails de 3 départements
+
 ​
 ## Structure
 ​
