@@ -7,42 +7,60 @@ require 'pp'
 
 class Scrapper
 
-  def get_the_email_of_a_townhal_from_its_webpage(url)
-    doc = Nokogiri::HTML(open(url))
-    doc.css('td')[7].text 
+  def initialize
+    @arrayfinal = Array.new
   end
 
+  def get_the_email_of_a_townhal_from_its_webpage(url)
+
+    begin
+      doc = Nokogiri::HTML(open(url)) do
+        doc.css('td')[7].text 
+    end
+
+    rescue 
+        return "vide@vide.com"
+    end
+
+  end
+
+
+
+
   def get_all_the_urls_of_departement_townhalls(urldepartementx)
-    doc = Nokogiri::HTML(open(urldepartementx))
-    endlinks = doc.css("a[class=lientxt]")
 
-    endlinks.each do |endlink|    
-      villemail = Array.new 
-      #ville += urldepartementx.text      
+ 
+      doc = Nokogiri::HTML(open(urldepartementx)) 
 
-      email = get_the_email_of_a_townhal_from_its_webpage("http://annuaire-des-mairies.com/"+endlink['href'][1..-1])
+          endlinks = doc.css("a[class=lientxt]")
 
-      emails = Array.new
-      emails.push(email)
-
-      #puts emails
-
-      #puts endlink['href'][5..-6]
-
-      ville = Array.new
-      ville.push(endlink['href'][5..-6])
-
-      hashvillemail = Hash.new
-
-      hashvillemail = {
-        "ville" => ville,
-        "email" => emails,
-        "département" => urldepartementx[32..-6],
-        }
-      puts hashvillemail
+          begin endlinks.each do |endlink|    
      
-      # File.open("../../db/all_emails.JSON","w") do |f|
-      # f.write(array_final.to_json)
+            email = get_the_email_of_a_townhal_from_its_webpage("http://annuaire-des-mairies.com/"+endlink['href'][1..-1])
+
+            @hashvillemail = Hash.new
+
+            @hashvillemail = {
+              "ville" => endlink['href'][5..-6],
+              "email" => email,
+              "département" => urldepartementx[32..-6],
+              }
+            puts @hashvillemail      
+         
+            @arrayfinal.push(@hashvillemail)
+
+          end
+          rescue 
+            print "rescue moi!"
+          end
+    
+
+
+
+
+
+      File.open("../../db/all_emails.JSON","w") do |f|
+        f.write(@arrayfinal.to_json)
       end
 
       puts 
@@ -53,25 +71,39 @@ class Scrapper
       puts "fin département"
   end 
 
-  def add_to_array
-    array_final = Array.new
-    array_final.push(hash_ville_mail)
-  end
+###########################################################
 
   def perform
     get_all_the_urls_of_departement_townhalls("http://annuaire-des-mairies.com/calvados.html")
+       # juste après blonville sur mer
     get_all_the_urls_of_departement_townhalls("http://annuaire-des-mairies.com/calvados-2.html")
+
+    puts "sleep 30"
+    #sleep 30
     get_all_the_urls_of_departement_townhalls("http://annuaire-des-mairies.com/calvados-3.html")
+    #puts "sleep 10"
+    #sleep 10
     get_all_the_urls_of_departement_townhalls("http://annuaire-des-mairies.com/calvados-4.html")
+
+    #puts "sleep 60"
+    #sleep 60
 
     get_all_the_urls_of_departement_townhalls("http://annuaire-des-mairies.com/manche.html")
     get_all_the_urls_of_departement_townhalls("http://annuaire-des-mairies.com/manche-2.html")
+    puts "sleep 30"
+    #sleep 30
     get_all_the_urls_of_departement_townhalls("http://annuaire-des-mairies.com/manche-3.html")
+
+    #puts "sleep 60"
+    #sleep 60
 
     get_all_the_urls_of_departement_townhalls("http://annuaire-des-mairies.com/ille-et-vilaine.html")
     get_all_the_urls_of_departement_townhalls("http://annuaire-des-mairies.com/ille-et-vilaine-2.html")
 
-    get_all_the_urls_of_departements_townhalls("http://annuaire-des-mairies.com/ileetvilaine.html")
+    puts "sleep"
+    #sleep 60
+
+    get_all_the_urls_of_departement_townhalls("http://annuaire-des-mairies.com/ileetvilaine.html")
   end
 end
 
