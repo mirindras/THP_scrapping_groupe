@@ -22,3 +22,6 @@ gem 'googleauth'
 gem 'fileutils'
 
 gem 'twitter'
+
+
+gem 'google-api-client -v' '~> 0.8'
