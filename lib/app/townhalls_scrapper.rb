@@ -1,36 +1,57 @@
-require 'rubygems'
-require 'nokogiri'         
 require 'open-uri'
+require 'nokogiri'
+require 'pry'
+require 'rubygems'
 require 'json'
-require 'pp'
 
+class Scrapper 
 
-class Scrapper
+    attr_accessor :url, :doc, :departements
 
-  def get_the_email_of_a_townhal_from_its_webpage(url)
-    doc = Nokogiri::HTML(open(url))
-    doc.css('td')[7].text 
-  end
+    def initialize
+        @url = "http://annuaire-des-mairies.com"
+        @doc = Nokogiri::HTML(open(@url))
+        @departements = Array.new 
+        @departements = ["http://www.annuaire-des-mairies.com/ille-et-vilaine.html","http://www.annuaire-des-mairies.com/ille-et-vilaine-2.html",
+        "http://www.annuaire-des-mairies.com/haute-loire.html",
+        "http://www.annuaire-des-mairies.com/haute-vienne.html"]
+    end 
 
-  def get_all_the_urls_of_val_doise_townhalls(url)
-    doc = Nokogiri::HTML(open(url))
-    links = doc.css("a[class=lientxt]")
+    def get_the_email_of_a_townhal_from_its_webpage(url)
+        self.url = url 
+        self.doc = Nokogiri::HTML(open(@url))
+        self.doc.css("td")[7].text
+    end 
 
-    array_final = Array.new
+    def get_departement_name(url)
+        self.url = url
+        self.doc = Nokogiri::HTML(open(@url))
+        self.doc.xpath('/html/body/div/main/section[4]/div/table/tbody/tr[1]/td[2]').text
+    end 
 
-    urls = links.each {|url|    
-      hash_ville_mail = Hash.new
-      hash_ville_mail['ville'] = url.text
-      hash_ville_mail ['email'] = get_the_email_of_a_townhal_from_its_webpage("http://annuaire-des-mairies.com/"+url['href'][1..-1])
-      array_final.push(hash_ville_mail)
-      }
-      print array_final
-      File.open("db/all_emails.JSON","w") do |f|
-      f.write(array_final.to_json)
-      end
-  end 
+    def get_all_the_urls_of_three_departments 
+        begin 
+        array = Array.new 
+        self.departements.each do |i| 
+        self.url = "#{i}"
+        self.doc = Nokogiri::HTML(open(@url))
+        news_links = self.doc.css("a").select{|link| link['class'] == "lientxt"}
+        news_links = news_links.each{|link| 
+        hash = Hash.new 
+        hash["departement"] = get_departement_name (linkhref = 'http://annuaire-des-mairies.com'+ link['href'][1..-1]) 
+        hash["ville"] = link.text 
+        hash["email"] = get_the_email_of_a_townhal_from_its_webpage (linkhref = 'http://annuaire-des-mairies.com'+ link['href'][1..-1])
+        print array.push(hash)
+        }
+            rescue OpenURI::HTTPError => the_error #évite les URLs renvoyant une erreur 404
+            end
+            end 
+        array 
+    end 
+end 
 
-  def perform
-    get_all_the_urls_of_val_doise_townhalls("http://annuaire-des-mairies.com/val-d-oise.html")
-  end
+results = Scrapper.new.get_all_the_urls_of_three_departments
+
+File.open("../../db/all_emails.JSON","w") do |f|
+    f.write(results.to_json)
 end
