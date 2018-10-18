@@ -1,15 +1,20 @@
 require 'json'
-require 'townhalls_followers.rb'
+require 'csv'
 
-class Twittos_to_Json
+require_relative 'townhalls_follower.rb'
+#pas finis a ararnger
+class TwitterToJson
 
-  def town_list_db()
-    ville.each do |k,v|
-  end
+    def initialize(array_returned)
+        @a = File.open("./../3.4-Envoi_emails/db/all_emails.JSON","w") 
+        @a.write(array_returned.to_json)
 
-  def 
+        #@b = CSV.open("./../3.4-Envoi_emails/db/townhalls.csv", "wb")
+        #@b << array_returned
+    end
 
-  end
-
-
-
+    def add_more(array)
+        @a.write(array.to_json)
+        @b << array
+    end
+end
