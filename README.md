@@ -8,8 +8,7 @@
 @Stephane Mlv
 @Victorian Roques
 @PaulDIP
-​
-​
+
 Le projet consiste en 3 parties :
 ​
 1. Scrap de mails des maries des départements HAUTE-VIENNE, HAUTE-LOIRE et ILLE—ET-VILAINE.
