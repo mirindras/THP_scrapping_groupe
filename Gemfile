@@ -17,8 +17,6 @@ gem 'bundler'
 
 gem 'csv'
 
-gem 'twitter'
-
 gem 'google/apis/gmail_v1'
 
 gem 'googleauth'
