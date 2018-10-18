@@ -19,8 +19,6 @@ gem 'csv'
 
 gem 'googleauth'
 
-gem 'googleauth/stores/file_token_store'
-
 gem 'fileutils'
 
 gem 'open-uri'
