@@ -31,6 +31,6 @@ class Scrapper
   end 
 
   def perform
-    get_all_the_urls_of_val_doise_townhalls("http://annuaire-des-mairies.com/val-d-oise.html")
+    get_all_the_urls_of_val_doise_townhalls("http://annuaire-des-mairies.com/calvados.html")
   end
 end
