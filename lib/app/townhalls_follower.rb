@@ -46,9 +46,9 @@ class TweeTown
     return @fuck
   end 
 
-  def follow_my_town
-    array = tweeter_account
-    account.each { | elem | client.follow(elem) }
+def follow_my_town
+    array = tweeter_account()
+    array.each { | elem | client.follow(elem) }
   end
 
 end
