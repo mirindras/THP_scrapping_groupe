@@ -41,7 +41,6 @@ Pour faire tourner les programmes, lancer individuellement dans lib/app/ :
 ## Structure
 ​
 ├── .gitignore <br>
-├── .env <br>
 ├── README.md <br>
 ├── Gemfile <br>
 ├── Gemfile.lock <br>
