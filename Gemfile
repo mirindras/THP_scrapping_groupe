@@ -14,3 +14,19 @@ gem 'rubysl-open-uri', '~> 2.0'
 gem 'json'
 
 gem 'bundler'
+
+gem 'rubygems'
+
+gem 'csv'
+
+gem 'twitter'
+
+gem 'google/apis/gmail_v1'
+
+gem 'googleauth'
+
+gem 'googleauth/stores/file_token_store'
+
+gem 'fileutils'
+
+gem 'open-uri'
