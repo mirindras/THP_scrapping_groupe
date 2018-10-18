@@ -20,3 +20,5 @@ gem 'csv'
 gem 'googleauth'
 
 gem 'fileutils'
+
+gem 'twitter'
