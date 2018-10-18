@@ -12,3 +12,5 @@ gem 'nokogiri'
 gem 'rubysl-open-uri', '~> 2.0'
 
 gem 'json'
+
+gem 'bundler'
