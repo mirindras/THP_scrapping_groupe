@@ -17,8 +17,6 @@ gem 'bundler'
 
 gem 'csv'
 
-gem 'google/apis/gmail_v1'
-
 gem 'googleauth'
 
 gem 'googleauth/stores/file_token_store'
